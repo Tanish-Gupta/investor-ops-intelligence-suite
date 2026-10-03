@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="40" viewBox="0 0 250 40" role="img" aria-label="Investor Ops and Intelligence Suite">
+  <defs>
+    <linearGradient id="c" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B07240"/><stop offset="1" stop-color="#8A4F24"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="4" width="32" height="32" rx="10" fill="url(#c)"/>
+  <path d="M9 22.5h4.5l2.5-9 3.5 12 2.5-7H27" fill="none" stroke="#FFF6EC" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="44" y="20" font-family="Iowan Old Style, Palatino Linotype, Charter, Georgia, serif"
+        font-size="16" font-weight="700" fill="#2B2722">Investor Ops</text>
+  <text x="44" y="34" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="10.5" fill="#6B6158">&amp; Intelligence Suite</text>
+</svg>

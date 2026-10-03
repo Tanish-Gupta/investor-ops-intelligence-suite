@@ -1,0 +1,229 @@
+# Structured fee rules for the Pillar A fee calculators (docs/techDecisions.md §3.3,
+# docs/architecture/rag.md §3). Bullet 4 (worked example) of every fee answer is computed from
+# these rules in code, never by the LLM.
+#
+# Conventions
+# - Percentages are strings in percent units ("0.005" = 0.005%) so code can parse them with
+#   Decimal and never hits float rounding.
+# - Holding windows are in days, counted from the allotment date. `max_days` is inclusive.
+# - Every rule cites a `doc_id` from data/sources.csv; the `source` URL is what users see.
+
+as_of: 2026-10-03
+
+stamp_duty:
+  rate_pct: "0.005"
+  applies_on: purchase # lump sum, SIP instalment, STP-in, switch-in
+  not_on: redemption
+  demat_transfer_rate_pct: "0.015"
+  basis: purchase_amount
+  effective_from: 2020-07-01
+  doc_id: FE-STAMP-01
+  source: https://www.bajajamc.com/knowledge-centre/stamp-duty-on-mutual-funds
+
+stt:
+  rate_pct: "0.001"
+  applies_on: redemption
+  applies_to_categories: # equity-oriented (scheme pages state equity taxation for the hybrids)
+    [ELSS, Large Cap, Flexi Cap, Index, Large & Mid Cap, Multi Cap, Small Cap, Sectoral/Thematic,
+     Balanced Advantage, Multi Asset Allocation, Equity Savings, Arbitrage, Equity ETF]
+  exempt_categories: # debt-oriented funds are not subject to STT
+    [Liquid, Money Market, Overnight, Low Duration, Gilt, Banking and PSU, Liquid ETF]
+  basis: redemption_value
+  doc_id: FE-STT-01
+  source: https://www.bajajamc.com/knowledge-centre/securities-transaction-tax
+
+expense_ratio:
+  charged: daily_within_nav # never a separate debit
+  doc_id: FE-TER-01
+  source: https://www.tatamutualfund.com/blogs/what-expense-ratio-mutual-funds-learn-how-much-you-are-actually-paying-your-fund
+
+lock_in:
+  ELSS:
+    years: 3
+    per_instalment: true
+    doc_id: FE-LOCKIN-01
+    source: https://www.mutualfundssahihai.com/en/should-i-invest-elss-through-sip-or-lumpsum
+
+# Scheme exit-load rules. `slabs` are checked in order; the first slab whose window contains the
+# holding period applies. A missing slab means no exit load. Values come from the scheme docs.
+# Optional: `window_text` is the window as the scheme page words it ("6 months"); `free_units_pct`
+# is the share of allotted units that may be redeemed inside the window without a load.
+exit_load:
+  basis: redemption_value
+  explainer_doc_id: FE-EXIT-01
+  schemes:
+    ELSS:
+      slabs: [] # 0% exit load; units are locked in for 3 years instead
+      doc_id: F-ELSS-01
+      source: https://www.indmoney.com/mutual-funds/edelweiss-elss-tax-saver-direct-plan-growth-option-2669
+    FLEXI:
+      slabs:
+        - {min_days: 0, max_days: 90, rate_pct: "1.0"}
+      doc_id: F-FLEXI-01
+      source: https://www.indmoney.com/mutual-funds/edelweiss-flexi-cap-fund-direct-growth-3174
+    LC:
+      slabs:
+        - {min_days: 0, max_days: 90, rate_pct: "1.0"}
+      doc_id: F-LC-02
+      source: https://www.etmoney.com/mutual-funds/edelweiss-large-cap-fund-direct-growth/16911
+    IDX:
+      slabs: [] # 0% exit load
+      doc_id: F-IDX-01
+      source: https://www.indmoney.com/mutual-funds/edelweiss-nifty-50-index-fund-direct-growth
+    LIQ:
+      # Graded exit load. Day 1 = redeemed on the first day after investing; nil from day 7.
+      graded: true
+      basis: redemption_proceeds
+      slabs:
+        - {day: 1, rate_pct: "0.0070"}
+        - {day: 2, rate_pct: "0.0065"}
+        - {day: 3, rate_pct: "0.0060"}
+        - {day: 4, rate_pct: "0.0055"}
+        - {day: 5, rate_pct: "0.0050"}
+        - {day: 6, rate_pct: "0.0045"}
+      nil_from_day: 7
+      doc_id: F-LIQ-02
+      explainer_doc_id: FE-GRADED-01
+      regulation_doc_id: R-SEBI-LIQ-01
+      source: https://www.edelweissmf.com/Files/downloads/Product%20Collateral/Factsheet/2025/Feb/published/Edelweiss_Liquid_Fund_18022025_091849_PM.pdf
+    BLC:
+      slabs:
+        - {min_days: 0, max_days: 183, rate_pct: "1.0"}
+      window_text: 6 months
+      doc_id: F-BLC-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-large-cap-fund/
+    BFLEXI:
+      slabs:
+        - {min_days: 0, max_days: 183, rate_pct: "1.0"}
+      window_text: 6 months
+      free_units_pct: 10
+      doc_id: F-BFLEXI-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-flexi-cap-fund/
+    BLMC:
+      slabs:
+        - {min_days: 0, max_days: 183, rate_pct: "1.0"}
+      window_text: 6 months
+      free_units_pct: 10
+      doc_id: F-BLMC-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-large-and-mid-cap-fund/
+    BMC:
+      slabs:
+        - {min_days: 0, max_days: 183, rate_pct: "1.0"}
+      window_text: 6 months
+      free_units_pct: 10
+      doc_id: F-BMC-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-multi-cap-fund/
+    BSC:
+      slabs:
+        - {min_days: 0, max_days: 183, rate_pct: "1.0"}
+      window_text: 6 months
+      free_units_pct: 10
+      doc_id: F-BSC-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-small-cap-fund/
+    BELSS:
+      slabs: [] # Nil exit load
+      doc_id: F-BELSS-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-elss-tax-saver-fund/
+    BHC:
+      slabs:
+        - {min_days: 0, max_days: 91, rate_pct: "1.0"}
+      window_text: 3 months
+      doc_id: F-BHC-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-healthcare-fund/
+    BCONS:
+      slabs:
+        - {min_days: 0, max_days: 91, rate_pct: "1.0"}
+      window_text: 3 months
+      doc_id: F-BCONS-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-consumption-fund/
+    BBFS:
+      slabs:
+        - {min_days: 0, max_days: 91, rate_pct: "1.0"}
+      window_text: 3 months
+      doc_id: F-BBFS-01
+      source: https://www.bajajamc.com/mutual-funds/equity-funds/bajaj-finserv-banking-and-financial-services-fund/
+    BN50:
+      slabs: [] # Nil exit load
+      doc_id: F-BN50-01
+      source: https://www.bajajamc.com/mutual-funds/index-funds/bajaj-finserv-nifty-50-index-fund/
+    BNN50:
+      slabs: [] # Nil exit load
+      doc_id: F-BNN50-01
+      source: https://www.bajajamc.com/mutual-funds/index-funds/bajaj-finserv-nifty-next-50-index-fund/
+    BBAF:
+      slabs:
+        - {min_days: 0, max_days: 91, rate_pct: "1.0"}
+      window_text: 3 months
+      free_units_pct: 8
+      doc_id: F-BBAF-01
+      source: https://www.bajajamc.com/mutual-funds/hybrid-funds/bajaj-finserv-balanced-advantage-fund/
+    BMAAF:
+      slabs:
+        - {min_days: 0, max_days: 91, rate_pct: "1.0"}
+      window_text: 3 months
+      free_units_pct: 30
+      doc_id: F-BMAAF-01
+      source: https://www.bajajamc.com/mutual-funds/hybrid-funds/bajaj-finserv-multi-asset-allocation-fund/
+    BESF:
+      slabs:
+        - {min_days: 0, max_days: 7, rate_pct: "0.25"}
+      window_text: 7 days
+      doc_id: F-BESF-01
+      source: https://www.bajajamc.com/mutual-funds/hybrid-funds/bajaj-finserv-equity-savings-fund/
+    BARB:
+      slabs:
+        - {min_days: 0, max_days: 15, rate_pct: "0.25"}
+      window_text: 15 days
+      doc_id: F-BARB-01
+      source: https://www.bajajamc.com/mutual-funds/hybrid-funds/bajaj-finserv-arbitrage-fund/
+    BLIQ:
+      graded: true
+      basis: redemption_proceeds
+      slabs:
+        - {day: 1, rate_pct: "0.0070"}
+        - {day: 2, rate_pct: "0.0065"}
+        - {day: 3, rate_pct: "0.0060"}
+        - {day: 4, rate_pct: "0.0055"}
+        - {day: 5, rate_pct: "0.0050"}
+        - {day: 6, rate_pct: "0.0045"}
+      nil_from_day: 7
+      doc_id: F-BLIQ-01
+      explainer_doc_id: FE-GRADED-01
+      regulation_doc_id: R-SEBI-LIQ-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-liquid-fund/
+    BMM:
+      slabs: [] # Nil exit load
+      doc_id: F-BMM-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-money-market-fund/
+    BON:
+      slabs: [] # Nil exit load
+      doc_id: F-BON-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-overnight-fund/
+    BLD:
+      slabs: [] # Nil exit load
+      doc_id: F-BLD-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-low-duration-fund/
+    BGILT:
+      slabs: [] # Nil exit load
+      doc_id: F-BGILT-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-gilt-fund/
+    BBPSU:
+      slabs: [] # Nil exit load
+      doc_id: F-BBPSU-01
+      source: https://www.bajajamc.com/mutual-funds/debt-funds/bajaj-finserv-banking-and-psu-fund/
+    BETF50:
+      slabs: [] # Nil exit load
+      doc_id: F-BETF50-01
+      source: https://www.bajajamc.com/mutual-funds/etf/bajaj-finserv-nifty-50-etf/
+    BETFBANK:
+      slabs: [] # Nil exit load
+      doc_id: F-BETFBANK-01
+      source: https://www.bajajamc.com/mutual-funds/etf/bajaj-finserv-nifty-bank-etf/
+    BETFT10:
+      slabs: [] # Nil exit load
+      doc_id: F-BETFT10-01
+      source: https://www.bajajamc.com/mutual-funds/etf/bajaj-finserv-bse-top-10-banks-etf/
+    BETFLIQ:
+      slabs: [] # Nil exit load
+      doc_id: F-BETFLIQ-01
+      source: https://www.bajajamc.com/mutual-funds/etf/bajaj-finserv-nifty-1d-rate-liquid-etf/

@@ -1,0 +1,41 @@
+# Secrets & credentials
+.env
+.env.*
+!.env.example
+secrets/
+*token*.json
+credentials*.json
+service_account*.json
+
+# Generated data
+data/artifacts/
+data/lancedb/
+*.db
+*.db-wal
+*.db-shm
+evals/reports/*
+!evals/reports/.gitkeep
+
+# Python / tooling
+__pycache__/
+*.py[cod]
+.venv/
+.tools/
+.uv-cache/
+.pytest_cache/
+.ruff_cache/
+.deepeval/
+*.egg-info/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+/~/
+
+# Local model cache
+.models/
+
+# Stray SQLite in-memory artifacts
+:memory:*
+.impeccable/

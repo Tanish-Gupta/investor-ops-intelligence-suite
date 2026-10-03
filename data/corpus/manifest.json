@@ -1,0 +1,110 @@
+{
+  "R-AMC-STAMP-01": {
+    "bytes": 860023,
+    "fetched_at": "2026-10-03T16:24:15+05:30",
+    "final_url": "https://www.bajajamc.com/knowledge-centre/stamp-duty-on-mutual-funds",
+    "sha256": "a436ccbc7a6c2a7ca2f3cbc384e81a2b842a82f4922dda3832d36cf79c65e9bc",
+    "status": 200,
+    "text_chars": 7799,
+    "url": "https://www.bajajamc.com/knowledge-centre/stamp-duty-on-mutual-funds"
+  },
+  "R-AMC-STT-01": {
+    "bytes": 871088,
+    "fetched_at": "2026-10-03T16:27:26+05:30",
+    "final_url": "https://www.bajajamc.com/knowledge-centre/securities-transaction-tax",
+    "sha256": "d473618e4a67cde7dd27e52a1b07dd1bf4bf988eb912d1e719a5a431c05914a3",
+    "status": 200,
+    "text_chars": 16001,
+    "url": "https://www.bajajamc.com/knowledge-centre/securities-transaction-tax"
+  },
+  "R-AMC-TER-01": {
+    "bytes": 500863,
+    "fetched_at": "2026-10-03T16:28:22+05:30",
+    "final_url": "https://www.tatamutualfund.com/blogs/what-expense-ratio-mutual-funds-learn-how-much-you-are-actually-paying-your-fund",
+    "sha256": "1c853feed9e5cb37364f040f1b6f75ef335f933095c14e0dc8331f50d3d80880",
+    "status": 200,
+    "text_chars": 8108,
+    "url": "https://www.tatamutualfund.com/blogs/what-expense-ratio-mutual-funds-learn-how-much-you-are-actually-paying-your-fund"
+  },
+  "R-MFSH-DOCS-01": {
+    "bytes": 116972,
+    "fetched_at": "2026-10-03T16:24:12+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/what-documents-are-provided-proof-my-investment-mutual-funds",
+    "sha256": "41de488f3993ed8a57b2b4c84b0024fb42f297e525a91df3d8866fe8778a1b62",
+    "status": 200,
+    "text_chars": 861,
+    "url": "https://www.mutualfundssahihai.com/en/what-documents-are-provided-proof-my-investment-mutual-funds"
+  },
+  "R-MFSH-ELSS-01": {
+    "bytes": 118722,
+    "fetched_at": "2026-10-03T16:24:11+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/elss-fund-tax-saving-mutual-fund",
+    "sha256": "058c9dbb0bd1e20be2b94cf215603cdd9b283013dc880f1a9db1641a2902b5c4",
+    "status": 200,
+    "text_chars": 698,
+    "url": "https://www.mutualfundssahihai.com/en/elss-fund-tax-saving-mutual-fund"
+  },
+  "R-MFSH-ELSSSIP-01": {
+    "bytes": 118166,
+    "fetched_at": "2026-10-03T16:27:27+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/should-i-invest-elss-through-sip-or-lumpsum",
+    "sha256": "7b12f64b2c10b7615d3ad6da7a4bee9fc40b5fa97556d8115c7f7b42e6183cd7",
+    "status": 200,
+    "text_chars": 1365,
+    "url": "https://www.mutualfundssahihai.com/en/should-i-invest-elss-through-sip-or-lumpsum"
+  },
+  "R-MFSH-EXP-01": {
+    "bytes": 115976,
+    "fetched_at": "2026-10-03T16:24:11+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/what-are-expenses-incurred-mutual-fund-scheme",
+    "sha256": "b38e2cadeb4f3bb02cc796a75fe9d1c7d14bcbe6ea52d1ab4f622d008b7e465a",
+    "status": 200,
+    "text_chars": 853,
+    "url": "https://www.mutualfundssahihai.com/en/what-are-expenses-incurred-mutual-fund-scheme"
+  },
+  "R-MFSH-LOADS-01": {
+    "bytes": 114864,
+    "fetched_at": "2026-10-03T16:24:10+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/what-are-loads",
+    "sha256": "65c1dff1e2994729964cb20d8676ab7786e3437b769911fed0844203cf64094b",
+    "status": 200,
+    "text_chars": 1160,
+    "url": "https://www.mutualfundssahihai.com/en/what-are-loads"
+  },
+  "R-MFSH-LOCKIN-01": {
+    "bytes": 121520,
+    "fetched_at": "2026-10-03T16:24:11+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/what-is-lock-in-period",
+    "sha256": "74378bc44de17350d16cb59ed1c8cbe7ef68d913510bc1c5a1ab4f83c3ce27b6",
+    "status": 200,
+    "text_chars": 2466,
+    "url": "https://www.mutualfundssahihai.com/en/what-is-lock-in-period"
+  },
+  "R-MFSH-REDEEM-01": {
+    "bytes": 118331,
+    "fetched_at": "2026-10-03T16:24:11+05:30",
+    "final_url": "https://www.mutualfundssahihai.com/en/what-costs-does-one-incur-while-redeeming-mutual-fund-units",
+    "sha256": "c3a681b6909cbe93059e96925710277bad1be701916222dfe7dce291636db735",
+    "status": 200,
+    "text_chars": 1357,
+    "url": "https://www.mutualfundssahihai.com/en/what-costs-does-one-incur-while-redeeming-mutual-fund-units"
+  },
+  "R-SEBI-EXIT-01": {
+    "bytes": 14012,
+    "fetched_at": "2026-10-03T16:24:10+05:30",
+    "final_url": "https://investor.sebi.gov.in/exit_load.html",
+    "sha256": "a26175495777956602cd8f586aa2c18961f136fcb8eb926cd98061b3671b39ec",
+    "status": 200,
+    "text_chars": 2483,
+    "url": "https://investor.sebi.gov.in/exit_load.html"
+  },
+  "R-SEBI-LIQ-01": {
+    "bytes": 132222,
+    "fetched_at": "2026-10-03T16:25:02+05:30",
+    "final_url": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2019/1568988295926.pdf",
+    "sha256": "61df6b05ed77b64ab1c6d4e9ff2cf55f5914e3fa738018531db0897898366bf3",
+    "status": 200,
+    "text_chars": 3990,
+    "url": "https://www.sebi.gov.in/sebi_data/attachdocs/sep-2019/1568988295926.pdf"
+  }
+}

@@ -1,0 +1,188 @@
+# Colloquial names -> canonical scheme. Used by the Pillar A router to resolve which scheme a
+# question is about (docs/architecture/rag.md §4). Aliases are matched case-insensitively on
+# word boundaries, longest alias first. Keep aliases unambiguous across schemes.
+
+# Two AMCs: Edelweiss MF (5 schemes, M1) and Bajaj Finserv MF (25 schemes, official AMC pages).
+amcs: [Edelweiss Mutual Fund, Bajaj Finserv Mutual Fund]
+plan: Direct Plan - Growth
+
+schemes:
+  - id: ELSS
+    canonical: Edelweiss ELSS Tax Saver Fund
+    category: ELSS
+    doc_ids: [F-ELSS-01]
+    aliases: [elss, elss fund, elss tax saver, tax saver, tax saver fund, tax saving fund, tax-saving fund, 80c fund, edelweiss elss, edelweiss tax saver, long term equity fund]
+
+  - id: FLEXI
+    canonical: Edelweiss Flexi Cap Fund
+    category: Flexi Cap
+    doc_ids: [F-FLEXI-01]
+    aliases: [flexi cap, flexicap, flexi-cap, flexi cap fund, edelweiss flexi cap]
+
+  - id: LC
+    canonical: Edelweiss Large Cap Fund
+    category: Large Cap
+    doc_ids: [F-LC-01, F-LC-02]
+    aliases: [large cap, largecap, large-cap, large cap fund, bluechip, blue chip, edelweiss large cap]
+
+  - id: IDX
+    canonical: Edelweiss Nifty 50 Index Fund
+    category: Index
+    doc_ids: [F-IDX-01]
+    aliases: [index fund, nifty 50, nifty50, nifty 50 index, nifty index fund, nifty fund, edelweiss nifty 50, edelweiss index]
+
+  - id: LIQ
+    canonical: Edelweiss Liquid Fund
+    category: Liquid
+    doc_ids: [F-LIQ-01, F-LIQ-02]
+    aliases: [liquid fund, liquid, edelweiss liquid]
+
+  - id: BLC
+    canonical: Bajaj Finserv Large Cap Fund
+    category: Large Cap
+    doc_ids: [F-BLC-01, F-BLC-02]
+    aliases: [bajaj finserv large cap fund, bajaj finserv large cap, bajaj large cap, bajaj large cap fund]
+
+  - id: BFLEXI
+    canonical: Bajaj Finserv Flexi Cap Fund
+    category: Flexi Cap
+    doc_ids: [F-BFLEXI-01, F-BFLEXI-02]
+    aliases: [bajaj finserv flexi cap fund, bajaj finserv flexi cap, bajaj flexi cap, bajaj flexicap, bajaj flexi cap fund]
+
+  - id: BLMC
+    canonical: Bajaj Finserv Large and Mid Cap Fund
+    category: Large & Mid Cap
+    doc_ids: [F-BLMC-01, F-BLMC-02]
+    aliases: [bajaj finserv large and mid cap fund, bajaj finserv large and mid cap, large and mid cap, large & mid cap, large and midcap, large midcap, large and mid cap fund, bajaj large and mid cap, bajaj large & mid cap, bajaj finserv large & mid cap]
+
+  - id: BMC
+    canonical: Bajaj Finserv Multi Cap Fund
+    category: Multi Cap
+    doc_ids: [F-BMC-01, F-BMC-02]
+    aliases: [bajaj finserv multi cap fund, bajaj finserv multi cap, multi cap, multicap, multi-cap, multi cap fund, bajaj multi cap]
+
+  - id: BSC
+    canonical: Bajaj Finserv Small Cap Fund
+    category: Small Cap
+    doc_ids: [F-BSC-01, F-BSC-02]
+    aliases: [bajaj finserv small cap fund, bajaj finserv small cap, small cap, smallcap, small-cap, small cap fund, bajaj small cap]
+
+  - id: BELSS
+    canonical: Bajaj Finserv ELSS Tax Saver Fund
+    category: ELSS
+    doc_ids: [F-BELSS-01, F-BELSS-02]
+    aliases: [bajaj finserv elss tax saver fund, bajaj finserv elss tax saver, bajaj elss, bajaj elss fund, bajaj tax saver, bajaj elss tax saver, bajaj finserv elss, bajaj finserv tax saver]
+
+  - id: BHC
+    canonical: Bajaj Finserv Healthcare Fund
+    category: Sectoral/Thematic
+    doc_ids: [F-BHC-01, F-BHC-02]
+    aliases: [bajaj finserv healthcare fund, bajaj finserv healthcare, healthcare, healthcare fund, pharma fund, health care fund, bajaj healthcare]
+
+  - id: BCONS
+    canonical: Bajaj Finserv Consumption Fund
+    category: Sectoral/Thematic
+    doc_ids: [F-BCONS-01, F-BCONS-02]
+    aliases: [bajaj finserv consumption fund, bajaj finserv consumption, consumption, consumption fund, bajaj consumption]
+
+  - id: BBFS
+    canonical: Bajaj Finserv Banking and Financial Services Fund
+    category: Sectoral/Thematic
+    doc_ids: [F-BBFS-01, F-BBFS-02]
+    aliases: [bajaj finserv banking and financial services fund, bajaj finserv banking and financial services, banking and financial services, banking & financial services, financial services fund, bfsi fund, bajaj banking and financial services]
+
+  - id: BN50
+    canonical: Bajaj Finserv Nifty 50 Index Fund
+    category: Index
+    doc_ids: [F-BN50-01, F-BN50-02]
+    aliases: [bajaj finserv nifty 50 index fund, bajaj finserv nifty 50 index, bajaj nifty 50, bajaj nifty 50 index, bajaj nifty 50 index fund, bajaj index fund, bajaj finserv nifty 50]
+
+  - id: BNN50
+    canonical: Bajaj Finserv Nifty Next 50 Index Fund
+    category: Index
+    doc_ids: [F-BNN50-01, F-BNN50-02]
+    aliases: [bajaj finserv nifty next 50 index fund, bajaj finserv nifty next 50 index, nifty next 50, nifty next 50 index, nifty next 50 index fund, next 50 index fund, bajaj nifty next 50, bajaj finserv nifty next 50]
+
+  - id: BBAF
+    canonical: Bajaj Finserv Balanced Advantage Fund
+    category: Balanced Advantage
+    doc_ids: [F-BBAF-01, F-BBAF-02]
+    aliases: [bajaj finserv balanced advantage fund, bajaj finserv balanced advantage, balanced advantage, balanced advantage fund, baf, dynamic asset allocation, bajaj balanced advantage]
+
+  - id: BMAAF
+    canonical: Bajaj Finserv Multi Asset Allocation Fund
+    category: Multi Asset Allocation
+    doc_ids: [F-BMAAF-01, F-BMAAF-02]
+    aliases: [bajaj finserv multi asset allocation fund, bajaj finserv multi asset allocation, multi asset, multi-asset, multi asset allocation, multi asset fund, multi asset allocation fund, bajaj multi asset, bajaj finserv multi asset]
+
+  - id: BESF
+    canonical: Bajaj Finserv Equity Savings Fund
+    category: Equity Savings
+    doc_ids: [F-BESF-01, F-BESF-02]
+    aliases: [bajaj finserv equity savings fund, bajaj finserv equity savings, equity savings, equity savings fund, bajaj equity savings]
+
+  - id: BARB
+    canonical: Bajaj Finserv Arbitrage Fund
+    category: Arbitrage
+    doc_ids: [F-BARB-01, F-BARB-02]
+    aliases: [bajaj finserv arbitrage fund, bajaj finserv arbitrage, arbitrage, arbitrage fund, bajaj arbitrage]
+
+  - id: BLIQ
+    canonical: Bajaj Finserv Liquid Fund
+    category: Liquid
+    doc_ids: [F-BLIQ-01, F-BLIQ-02]
+    aliases: [bajaj finserv liquid fund, bajaj finserv liquid, bajaj liquid, bajaj liquid fund]
+
+  - id: BMM
+    canonical: Bajaj Finserv Money Market Fund
+    category: Money Market
+    doc_ids: [F-BMM-01, F-BMM-02]
+    aliases: [bajaj finserv money market fund, bajaj finserv money market, money market, money market fund, bajaj money market]
+
+  - id: BON
+    canonical: Bajaj Finserv Overnight Fund
+    category: Overnight
+    doc_ids: [F-BON-01, F-BON-02]
+    aliases: [bajaj finserv overnight fund, bajaj finserv overnight, overnight, overnight fund, bajaj overnight]
+
+  - id: BLD
+    canonical: Bajaj Finserv Low Duration Fund
+    category: Low Duration
+    doc_ids: [F-BLD-01, F-BLD-02]
+    aliases: [bajaj finserv low duration fund, bajaj finserv low duration, low duration, low duration fund, bajaj low duration]
+
+  - id: BGILT
+    canonical: Bajaj Finserv Gilt Fund
+    category: Gilt
+    doc_ids: [F-BGILT-01, F-BGILT-02]
+    aliases: [bajaj finserv gilt fund, bajaj finserv gilt, gilt, gilt fund, government securities fund, bajaj gilt]
+
+  - id: BBPSU
+    canonical: Bajaj Finserv Banking and PSU Fund
+    category: Banking and PSU
+    doc_ids: [F-BBPSU-01, F-BBPSU-02]
+    aliases: [bajaj finserv banking and psu fund, bajaj finserv banking and psu, banking and psu, banking & psu, banking psu, psu debt fund, bajaj banking and psu, bajaj banking & psu]
+
+  - id: BETF50
+    canonical: Bajaj Finserv Nifty 50 ETF
+    category: Equity ETF
+    doc_ids: [F-BETF50-01, F-BETF50-02]
+    aliases: [bajaj finserv nifty 50 etf, nifty 50 etf, niftybetf, bajaj nifty 50 etf]
+
+  - id: BETFBANK
+    canonical: Bajaj Finserv Nifty Bank ETF
+    category: Equity ETF
+    doc_ids: [F-BETFBANK-01, F-BETFBANK-02]
+    aliases: [bajaj finserv nifty bank etf, nifty bank etf, bank etf, bankbetf, bajaj nifty bank etf, bajaj bank etf]
+
+  - id: BETFT10
+    canonical: Bajaj Finserv BSE Top 10 Banks ETF
+    category: Equity ETF
+    doc_ids: [F-BETFT10-01, F-BETFT10-02]
+    aliases: [bajaj finserv bse top 10 banks etf, top 10 banks etf, bse top 10 banks, top 10 banks, bajaj top 10 banks etf]
+
+  - id: BETFLIQ
+    canonical: Bajaj Finserv Nifty 1D Rate Liquid ETF
+    category: Liquid ETF
+    doc_ids: [F-BETFLIQ-01, F-BETFLIQ-02]
+    aliases: [bajaj finserv nifty 1d rate liquid etf, liquid etf, nifty 1d rate, 1d rate liquid etf, nifty 1d rate liquid etf, bajaj liquid etf, bajaj finserv liquid etf]

@@ -1,0 +1,22 @@
+# Standard refusal templates (docs/rules.md §9). Edit here, not in code.
+version: 1
+advice: >-
+  I can't provide investment advice or predict returns. I can share factual scheme details
+  with official sources, or help you book a call with an advisor.
+pii_request: >-
+  I can't share personal contact details. For official queries, please use the company's
+  public support channels listed in the app.
+pii_shared: >-
+  For your safety, please don't share personal details here — I haven't stored them. Your
+  advisor will collect anything needed securely during the call.
+out_of_scope: >-
+  I can help with mutual fund facts, fees and charges, and booking advisor calls. Could you
+  ask something in those areas?
+not_in_sources: >-
+  I couldn't find that in my official sources. You can check {link}.
+safe_fallback: >-
+  Sorry, I can't answer that in a compliant way. I can share factual scheme details with
+  official sources, or help you book a call with an advisor.
+education_links:
+  - https://www.amfiindia.com/investor-corner
+  - https://investor.sebi.gov.in/

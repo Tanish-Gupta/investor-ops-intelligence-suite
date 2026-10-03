@@ -1,0 +1,5 @@
+There are so many elements involved in providing an investor various services so that he/she can achieve their financial goals.
+
+All these elements need to be paid their remuneration for the services provided. For this, there is an expense charged to each **Mutual Fund scheme**, as a percentage of the scheme’s corpus. SEBI regulations impose certain limits beyond which the charges are not allowed, even if the expenses are higher than the expenses charged. As per the said SEBI regulations, as the fund size grows, the maximum expenses that can be charged as percent of the Assets Under Management (AUM) come down.
+
+The offer document indicates the maximum-allowed expense ratio for each scheme you are considering to invest in. The monthly fact sheet and the half-yearly mandatory disclosures allow you to see the actual expenses charged per scheme.

@@ -1,0 +1,5 @@
+Once you **invest in a Mutual Fund** scheme, you will get an account statement with details like the date of the transaction, the amount invested, and the price at which the units are bought and the number of units allotted to you.
+
+You can do multiple transactions in the same account, wherein the statement will keep getting updated. A typical account statement will list out the last few (10 in most cases) transactions – whether purchase or redemption; dividends, if any; or even non-commercial transactions. The account statement would also give you a count of your latest unit balance, the **NAV** of a recent date and the current value of your investments.
+
+If you lose one statement, you can always get another one without hassles. Loss of account statement would not prevent you from future transactions, including taking your money out of the account.

@@ -1,0 +1,99 @@
+# Fixed theme taxonomy for the Review Analyst (M2) and the theme-aware Voice Agent (Pillar B).
+# Spec: docs/architecture/themeClassification.md §4 and docs/architecture/voiceagent.md §3.
+#
+# - `label` is the exact Literal the classifier may output; off-list labels are rejected.
+# - `keywords` drive the deterministic fallback classifier (lower-case, matched on word boundaries).
+# - `voice_topic` is the booking topic the theme maps to (null = no topic).
+# - `bookable_from_greeting` decides which greeting template Pillar B uses for this theme.
+
+max_active_themes: 5
+fallback_label: Other
+
+booking_topics:
+  - KYC/Onboarding
+  - SIP/Mandates
+  - Statements/Tax Docs
+  - Withdrawals & Timelines
+  - Nominee Updates
+  - Account & App Access
+
+themes:
+  - label: Login Issues
+    description: Cannot log in or stay logged in - OTP not received, logout loops, 2FA, password/MPIN, biometric.
+    keywords: [login, log in, logged out, logout, otp, mpin, pin, password, 2fa, biometric, fingerprint, face id, sign in, unable to login, verification code, can't login, cannot login, not able to login, locked out, session expired, 2-factor]
+    voice_topic: Account & App Access
+    bookable_from_greeting: false
+    greeting_phrase: login issues
+    action_idea: Add an OTP-delivery status banner and a one-tap MPIN reset path on the login screen.
+
+  - label: Nominee Updates
+    description: Adding or changing a nominee, nomination deadlines, nominee verification.
+    keywords: [nominee, nomination, add nominee, change nominee, opt out of nomination, nominee verification]
+    voice_topic: Nominee Updates
+    bookable_from_greeting: true
+    greeting_phrase: nominee updates
+    action_idea: Add an in-app nominee status tracker with clear verification steps and timelines.
+
+  - label: KYC & Onboarding
+    description: KYC pending or rejected, document upload, re-KYC, account opening.
+    keywords: [kyc, re-kyc, rekyc, ekyc, document upload, account opening, onboarding, verification pending, pan verification, aadhaar verification, account not opened, account opening pending, edit my details, update details, bank verification, demat account opening, signature]
+    voice_topic: KYC/Onboarding
+    bookable_from_greeting: true
+    greeting_phrase: KYC and onboarding
+    action_idea: Show a KYC progress checklist with the exact pending document and expected approval time.
+
+  - label: SIP & Mandates
+    description: SIP failed or skipped, autopay or mandate setup, SIP date or amount change.
+    keywords: [sip, mandate, autopay, auto pay, e-mandate, emandate, nach, sip failed, sip date, sip amount, upi autopay, auto debit, autodebit, instalment, installment, step up sip, sip skipped, sip cancelled]
+    voice_topic: SIP/Mandates
+    bookable_from_greeting: true
+    greeting_phrase: SIPs and mandates
+    action_idea: Send a pre-debit mandate health alert and a one-tap retry for failed SIP instalments.
+
+  - label: Withdrawals & Timelines
+    description: Redemption delays, payout not received, withdrawal failed, settlement timelines.
+    keywords: [withdraw, withdrawal, withdrawn, redeem, redemption, payout, settlement, money not received, not credited, refund, money stuck, funds stuck, amount stuck, fund transfer, transfer of funds, not received, add money, withdrawable, credited, money is stuck, money stucked, recover my money]
+    voice_topic: Withdrawals & Timelines
+    bookable_from_greeting: true
+    greeting_phrase: withdrawals and payout timelines
+    action_idea: Show a redemption timeline (T+1/T+2) with live payout status on the order screen.
+
+  - label: Fees & Charges
+    description: Exit load, brokerage, unexpected deductions, confusion about charges.
+    keywords: [fee, fees, charge, charges, charged, brokerage, exit load, deduction, deducted, stamp duty, stt, expense ratio, hidden charges, commission, dp charges, platform fee, hidden charge, amc charges, gst, penalty]
+    voice_topic: Statements/Tax Docs
+    bookable_from_greeting: true
+    greeting_phrase: fees and charges
+    action_idea: Show an itemised charges preview (exit load, stamp duty, STT) before order confirmation.
+
+  - label: Statements & Tax Docs
+    description: Capital-gains statement, CAS, account statement, tax proofs, P&L reports.
+    keywords: [statement, capital gain, capital gains, cas, tax proof, tax document, p&l, pnl report, form 16, 80c proof, elss statement, itr, tax report, tax statement, contract note, external mutual fund, external funds, portfolio tracking, tracking, holding statement, ledger]
+    voice_topic: Statements/Tax Docs
+    bookable_from_greeting: true
+    greeting_phrase: statements and tax documents
+    action_idea: Add a self-serve download for capital-gains statements and CAS in the reports section.
+
+  - label: App Performance & UX
+    description: Crashes, slowness, bugs, glitches, UI complaints or praise.
+    keywords: [crash, crashes, crashing, slow, lag, laggy, hang, bug, bugs, glitch, glitches, not loading, ui, interface, update, freeze, technical issue, not working, loading, freezes, freezing, lagging, hanging, error, glitchy, not showing, not updating, refresh, refreshing, chart, charts, delay, delayed, server down, down, outage, app is slow, layout, dark mode, notification, notifications, ads, app stuck, screen stuck, easy to use, user friendly, user-friendly, simple to use, smooth, font, watchlist, watch list, landscape]
+    voice_topic: null
+    bookable_from_greeting: false
+    greeting_phrase: app performance issues
+    action_idea: Prioritise crash and slowness fixes from the latest release and publish fix notes in-app.
+
+  - label: Customer Support
+    description: No response from support, unhelpful chatbot, long waits.
+    keywords: [customer care, customer service, customer support, support team, no response, chatbot, helpline, ticket, complaint, unresponsive, call centre, call center, not responding, no reply, no one responds, support, customer care number, escalation, help desk, raised a ticket, grievance]
+    voice_topic: null
+    bookable_from_greeting: false
+    greeting_phrase: customer support delays
+    action_idea: Publish support SLAs and add ticket status tracking with escalation after 24 hours.
+
+  - label: Other
+    description: Anything that does not fit the themes above.
+    keywords: []
+    voice_topic: null
+    bookable_from_greeting: false
+    greeting_phrase: other topics
+    action_idea: Review uncategorised feedback weekly to spot new themes for the taxonomy.

@@ -1,0 +1,68 @@
+[project]
+name = "investor-ops-suite"
+version = "0.1.0"
+description = "Investor Ops & Intelligence Suite: unified MF knowledge base (M1+M2), theme-aware voice agent (M2+M3) and HITL MCP approval center."
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    # App + config + state
+    "streamlit>=1.40",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "sqlmodel>=0.0.22",
+    "pyyaml>=6.0",
+    "pandas>=2.2",
+    # LLM gateway + tracing
+    "litellm>=1.50",
+    "arize-phoenix>=5.0",
+    "openinference-instrumentation-litellm>=0.1",
+    # Pillar A: parsing, chunking, vector store, embeddings/reranker
+    "docling>=2.10",
+    "trafilatura>=1.12",
+    "pymupdf4llm>=0.0.17",
+    "lancedb>=0.17",
+    "sentence-transformers>=3.2",
+    # Safety
+    "presidio-analyzer>=2.2",
+    "presidio-anonymizer>=2.2",
+    # Pillar B: voice
+    "dateparser>=1.2",
+    "groq>=0.11",
+    "edge-tts>=6.1",
+    # Pillar C: FastMCP + Google wrappers (same version as M3: 4.0.x)
+    "fastmcp>=4.0,<5",
+    "google-api-python-client>=2.100",
+    "google-auth>=2.20",
+    "google-auth-oauthlib>=1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "deepeval>=1.4",
+    "ruff>=0.6",
+    "pre-commit>=3.8",
+    "detect-secrets>=1.5",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+addopts = "-m 'not google_live and not llm_live'"
+markers = [
+    "google_live: hits the real Google APIs (needs credentials)",
+    "llm_live: calls a real LLM provider (needs API keys)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".tools", ".uv-cache", "docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DTZ"]

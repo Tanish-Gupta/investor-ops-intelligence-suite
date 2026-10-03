@@ -1,0 +1,248 @@
+[
+  {
+    "id": "G1",
+    "question": "What is the exit load for the ELSS fund and why was I charged it?",
+    "expected_intent": "COMBINED",
+    "scheme_id": "ELSS",
+    "expected_facts": [
+      "ELSS exit load is 0% (nil)",
+      "3-year lock-in"
+    ],
+    "expected_fee_points": [
+      "definition of exit load (charged only when redeeming inside the scheme's exit-load period)",
+      "ELSS units cannot be redeemed during the lock-in, so no exit load applies",
+      "a deduction is more likely stamp duty (0.005% on purchase) or STT (0.001% on equity-fund redemption)"
+    ],
+    "required_source_types": [
+      "M1_FACTSHEET",
+      "M2_FEE_EXPLAINER"
+    ],
+    "expected_doc_ids": [
+      "F-ELSS-01",
+      "FE-EXIT-01",
+      "FE-LOCKIN-01",
+      "FE-STAMP-01"
+    ],
+    "evidence": [
+      {
+        "doc_id": "F-ELSS-01",
+        "text": "Exit Load · 0%"
+      },
+      {
+        "doc_id": "F-ELSS-01",
+        "text": "Lock In · 3 Years"
+      },
+      {
+        "doc_id": "FE-LOCKIN-01",
+        "text": "Units cannot be redeemed during the lock-in, so ELSS funds do not need an exit load."
+      },
+      {
+        "doc_id": "FE-STAMP-01",
+        "text": "a stamp duty of 0.005% applies when you buy mutual fund units"
+      },
+      {
+        "doc_id": "FE-STT-01",
+        "text": "levied on the sale (redemption) of units at 0.001%"
+      }
+    ],
+    "premise_check": "The user assumes an exit load was charged; for ELSS the exit load is 0%, so the answer must correct the premise rather than invent a charge.",
+    "reference_answer": [
+      "The Edelweiss ELSS Tax Saver Fund has no exit load (0%); instead, units are locked in for 3 years.",
+      "Factsheet: exit load 0%, lock-in 3 years from allotment, applied separately to each SIP instalment.",
+      "An exit load is charged only when units are redeemed inside a scheme's exit-load period; ELSS units cannot be redeemed during the lock-in.",
+      "A deduction is more likely stamp duty (0.005% on purchase, e.g. ₹0.50 on ₹10,000) or STT (0.001% on equity-fund redemption).",
+      "Check your account statement: match the deduction to a purchase (stamp duty) or a redemption (STT) and its date.",
+      "Sources: Edelweiss ELSS Tax Saver Fund Direct Growth (INDmoney); Fee Explainer – Exit load, ELSS lock-in, Stamp duty."
+    ]
+  },
+  {
+    "id": "G2",
+    "question": "I redeemed my Flexi Cap units 8 months after buying. What exit load applies and how is it calculated?",
+    "expected_intent": "COMBINED",
+    "scheme_id": "FLEXI",
+    "scenario": {
+      "holding_days": 243,
+      "note": "8 months is about 243 days, well past the 90-day window."
+    },
+    "expected_facts": [
+      "Flexi Cap exit load is 1% if redeemed within 0-90 days",
+      "no exit load after 90 days"
+    ],
+    "expected_fee_points": [
+      "exit load = % of NAV on units redeemed inside the period",
+      "units held 8 months are outside the 90-day window, so no exit load applies",
+      "worked example: 1% at NAV ₹100 means ₹99 per unit inside the window"
+    ],
+    "required_source_types": [
+      "M1_FACTSHEET",
+      "M2_FEE_EXPLAINER"
+    ],
+    "expected_doc_ids": [
+      "F-FLEXI-01",
+      "FE-EXIT-01",
+      "FE-STT-01"
+    ],
+    "evidence": [
+      {
+        "doc_id": "F-FLEXI-01",
+        "text": "Exit Load of 1% if redeemed in 0-90 Days"
+      },
+      {
+        "doc_id": "FE-EXIT-01",
+        "text": "Units held past the period are redeemed with no exit load."
+      },
+      {
+        "doc_id": "FE-EXIT-01",
+        "text": "you get ₹99 per unit"
+      },
+      {
+        "doc_id": "FE-STT-01",
+        "text": "levied on the sale (redemption) of units at 0.001%"
+      }
+    ],
+    "premise_check": "At 8 months the 90-day window has passed, so the expected exit load is nil.",
+    "reference_answer": [
+      "No exit load applies: you redeemed after about 8 months, past the Flexi Cap fund's 90-day exit-load window.",
+      "Factsheet: exit load of 1% if redeemed in 0-90 days; nil after that. No lock-in.",
+      "An exit load is a percentage of NAV deducted only on units redeemed before the scheme's stated period ends.",
+      "Example: inside 90 days, 1% at NAV ₹100 gives ₹99 per unit; after 90 days you get the full ₹100.",
+      "Check the purchase date of each lot on your statement; a small deduction on redemption may be STT (0.001%).",
+      "Sources: Edelweiss Flexi Cap Fund Direct Growth (INDmoney); Fee Explainer – Exit load, STT."
+    ]
+  },
+  {
+    "id": "G3",
+    "question": "I withdrew from the liquid fund 3 days after investing — why is the amount slightly lower than expected?",
+    "expected_intent": "COMBINED",
+    "scheme_id": "LIQ",
+    "scenario": {
+      "holding_day": 3
+    },
+    "expected_facts": [
+      "Liquid fund graded exit load on day 3 is 0.0060%",
+      "nil from day 7"
+    ],
+    "expected_fee_points": [
+      "graded exit load applies to liquid funds for redemptions in the first 6 days (SEBI circular, Sep 2019)",
+      "load is a % of redemption proceeds and falls each day",
+      "worked example: ₹1,00,000 redeemed on day 3 → ₹6 exit load"
+    ],
+    "required_source_types": [
+      "M1_FACTSHEET",
+      "M2_FEE_EXPLAINER"
+    ],
+    "expected_doc_ids": [
+      "F-LIQ-02",
+      "FE-GRADED-01"
+    ],
+    "evidence": [
+      {
+        "doc_id": "F-LIQ-02",
+        "text": "Day 3 · 0.0060%"
+      },
+      {
+        "doc_id": "F-LIQ-02",
+        "text": "Day 7 onwards · NIL"
+      },
+      {
+        "doc_id": "FE-GRADED-01",
+        "text": "The exit load is 0.0060% × ₹1,00,000 = ₹6"
+      }
+    ],
+    "premise_check": "The INDmoney summary shows the liquid fund exit load as 0.0%; the factsheet's graded slabs override it for redemptions in the first week.",
+    "reference_answer": [
+      "Redeeming on day 3 triggers the liquid fund's graded exit load of 0.0060% of redemption proceeds.",
+      "Factsheet slabs: day 1 0.0070%, falling 0.0005% a day to 0.0045% on day 6; nil from day 7.",
+      "SEBI requires liquid funds to charge this small graded exit load on redemptions within the first 7 days.",
+      "Example: redeeming ₹1,00,000 on day 3 costs ₹6, so you receive ₹99,994.",
+      "Check your purchase and redemption dates on the statement to confirm the day count.",
+      "Sources: Edelweiss Liquid Fund factsheet; SEBI circular SEBI/HO/IMD/DF2/CIR/P/2019/101; Fee Explainer – Graded exit load."
+    ]
+  },
+  {
+    "id": "G4",
+    "question": "What is the expense ratio of the Index fund and does it get deducted from my account separately?",
+    "expected_intent": "COMBINED",
+    "scheme_id": "IDX",
+    "expected_facts": [
+      "Nifty 50 Index fund expense ratio is 0.14% (direct plan)"
+    ],
+    "expected_fee_points": [
+      "TER is an annual % but is deducted daily from the fund's assets",
+      "it is reflected in the NAV, not debited separately from the investor's account"
+    ],
+    "required_source_types": [
+      "M1_FACTSHEET",
+      "M2_FEE_EXPLAINER"
+    ],
+    "expected_doc_ids": [
+      "F-IDX-01",
+      "FE-TER-01"
+    ],
+    "evidence": [
+      {
+        "doc_id": "F-IDX-01",
+        "text": "Expense ratio · 0.14%"
+      },
+      {
+        "doc_id": "FE-TER-01",
+        "text": "The TER is not charged separately to your bank account"
+      },
+      {
+        "doc_id": "R-AMC-TER-01",
+        "text": "It is deducted from the fund's Net Asset Value (NAV) on a daily basis."
+      }
+    ],
+    "reference_answer": [
+      "The Edelweiss Nifty 50 Index Fund (Direct Growth) has an expense ratio of 0.14%, and it is not debited separately.",
+      "Scheme page: expense ratio 0.14% a year for the direct growth plan.",
+      "The TER is quoted yearly but deducted from fund assets every day, so it is already reflected in the NAV.",
+      "Example: on an average holding of ₹1,00,000, 0.14% is about ₹140 over a year, seen only as a lower NAV.",
+      "Check the latest factsheet for the current TER; it can change month to month.",
+      "Sources: Edelweiss Nifty 50 Index Fund Direct Growth (INDmoney); Fee Explainer – Expense ratio (TER)."
+    ]
+  },
+  {
+    "id": "G5",
+    "question": "My ₹10,000 SIP in the Large Cap fund showed ₹9,999.50 invested. What is the minimum SIP and why the difference?",
+    "expected_intent": "COMBINED",
+    "scheme_id": "LC",
+    "scenario": {
+      "purchase_amount_inr": 10000
+    },
+    "expected_facts": [
+      "Large Cap minimum SIP is ₹100"
+    ],
+    "expected_fee_points": [
+      "stamp duty of 0.005% applies on every purchase, including SIP instalments",
+      "₹10,000 × 0.005% = ₹0.50, so units are allotted for ₹9,999.50"
+    ],
+    "required_source_types": [
+      "M1_FACTSHEET",
+      "M2_FEE_EXPLAINER"
+    ],
+    "expected_doc_ids": [
+      "F-LC-01",
+      "FE-STAMP-01"
+    ],
+    "evidence": [
+      {
+        "doc_id": "F-LC-01",
+        "text": "Min Lumpsum/SIP · ₹100/₹100"
+      },
+      {
+        "doc_id": "FE-STAMP-01",
+        "text": "On a ₹10,000 SIP instalment, stamp duty is ₹0.50"
+      }
+    ],
+    "open_issue": "ET Money lists a ₹500 minimum SIP for this scheme; INDmoney (F-LC-01) shows ₹100. Confirm against the AMC KIM before the final eval run (see data/corpus/README.md).",
+    "reference_answer": [
+      "The Large Cap fund's minimum SIP is ₹100; the ₹0.50 difference is stamp duty on your SIP instalment.",
+      "Scheme page: minimum lump sum ₹100 and minimum SIP ₹100 for the direct growth plan.",
+      "Stamp duty of 0.005% applies to every mutual fund purchase, including each SIP instalment, and is deducted before units are allotted.",
+      "Example: ₹10,000 × 0.005% = ₹0.50, so units are allotted for ₹9,999.50.",
+      "Check each SIP instalment on your statement; the same small deduction appears on every purchase.",
+      "Sources: Edelweiss Large Cap Fund Direct Growth (INDmoney); Fee Explainer – Stamp duty."
+    ]
+  }
+]
