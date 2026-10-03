@@ -79,7 +79,7 @@ def _stored_text(root: Path) -> str:
         if (
             f.is_file()
             and not f.is_symlink()
-            and "lancedb" not in f.parts
+            and not {"lancedb", "lancedb_lite"} & set(f.parts)
             and "corpus" not in f.parts
         ):
             out.append(f.read_bytes().decode("utf-8", "ignore"))

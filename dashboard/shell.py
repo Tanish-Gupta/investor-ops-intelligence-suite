@@ -4,18 +4,22 @@ from __future__ import annotations
 
 import importlib
 import logging
+from pathlib import Path
 
 import streamlit as st
 
-HOME = "views/home.py"
-ASK = "views/ask.py"
-BOOK = "views/book.py"
-PULSE = "views/pulse.py"
-APPROVALS = "views/approvals.py"
+# Absolute paths: Streamlit resolves page files against the main script's folder, and the
+# Streamlit Cloud entry point (cloud/streamlit_app.py) lives in a subfolder.
+_VIEWS = Path(__file__).resolve().parent.parent / "views"
+HOME = str(_VIEWS / "home.py")
+ASK = str(_VIEWS / "ask.py")
+BOOK = str(_VIEWS / "book.py")
+PULSE = str(_VIEWS / "pulse.py")
+APPROVALS = str(_VIEWS / "approvals.py")
 # Retired ops pages (not in navigation; evals run from the CLI). Kept so old modules import.
-NOTES = "views/notes.py"
-EVALS = "views/evals.py"
-HEALTH = "views/health.py"
+NOTES = str(_VIEWS / "notes.py")
+EVALS = str(_VIEWS / "evals.py")
+HEALTH = str(_VIEWS / "health.py")
 
 DISCLAIMER = "Facts only. No investment advice."
 

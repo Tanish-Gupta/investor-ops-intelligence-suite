@@ -15,7 +15,7 @@ from pathlib import Path
 
 from config.settings import get_settings
 
-READ_ONLY_INPUTS = ("corpus", "lancedb", "sources.csv")
+READ_ONLY_INPUTS = ("corpus", "lancedb", "lancedb_lite", "sources.csv")
 
 
 def _clear_caches() -> None:

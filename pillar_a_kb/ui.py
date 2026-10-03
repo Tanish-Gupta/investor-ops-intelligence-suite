@@ -8,6 +8,7 @@ import uuid
 
 import streamlit as st
 
+from config.settings import get_settings
 from dashboard.shell import BOOK
 from dashboard.ui_kit import (
     card,
@@ -50,6 +51,8 @@ def _warm_models() -> bool:
     """Load the embedder and reranker once per server process. False if they are missing."""
     from pillar_a_kb import models
 
+    if get_settings().kb_lite:  # keyword search by design; nothing to warm
+        return True
     try:
         models.embed_query("exit load")
         models.rerank("exit load", ["Exit load is a charge on early redemption."])
@@ -62,6 +65,17 @@ def _manifest() -> dict | None:
     from pillar_a_kb.ingest import read_manifest
 
     return read_manifest()
+
+
+@st.cache_resource(show_spinner="Preparing the fund library…")
+def _lite_index() -> bool:
+    """Build the keyword-only index once per server process (lite runtime)."""
+    from pillar_a_kb.ingest import ingest
+    from pillar_a_kb.retriever import get_retriever
+
+    ingest(rebuild=True, use_docling=False)
+    get_retriever(refresh=True)
+    return True
 
 
 def _sync_index(rebuild: bool = False) -> None:
@@ -249,6 +263,9 @@ def render() -> None:
     st.session_state.setdefault("session_id", uuid.uuid4().hex[:12])
     history: list[tuple[str, object, str]] = st.session_state.setdefault("kb_history", [])
 
+    if manifest is None and get_settings().kb_lite:
+        _lite_index()  # fresh cloud container: the keyword index builds in seconds
+        manifest = _manifest()
     if manifest is None:
         empty_state(
             "The fund library isn't loaded yet",

@@ -46,6 +46,26 @@ The Weekly Pulse is built automatically from the bundled `data/reviews/reviews.c
 
 Optional git hooks: `uv run pre-commit install` (ruff + detect-secrets).
 
+## Deploy to Streamlit Community Cloud
+
+Vercel can't host this app: it runs serverless functions and has no long-running Streamlit server. Streamlit Community Cloud can, but its free tier has about 1 GB of RAM, which is too little for the local embedding and re-ranker models (about 3.3 GB). So the cloud build runs a **lite runtime**:
+
+- **`KB_LITE=true`** switches Unified Search to keyword (BM25/FTS) retrieval. Torch and the local models never load.
+- **Index auto-build:** the keyword index builds into `data/lancedb_lite/` on the first visit, in a few seconds.
+- **Unchanged:** the deterministic fact cards, fee templates, guardrails, pulse, voice agent and the FastMCP and HITL flows work exactly as they do locally. All four eval suites pass in lite mode (`KB_LITE=true uv run python -m evals.run_evals`).
+
+Setup:
+
+1. Go to [share.streamlit.io](https://share.streamlit.io), choose **Create app → Deploy a public app from GitHub**, and pick this repo on branch `main`.
+2. Set **Main file path** to **`cloud/streamlit_app.py`**.
+   - This matters: Community Cloud uses the dependency file next to the entry point, so it installs the slim [`cloud/requirements.txt`](./cloud/requirements.txt) (about 800 MB, no torch) instead of the root `uv.lock`.
+3. Under **Advanced settings**:
+   - pick **Python 3.12**;
+   - optionally paste secrets, e.g. `GEMINI_API_KEY = "…"` and `GROQ_API_KEY = "…"`. Without keys the app runs in deterministic mode.
+4. Deploy. The theme in `.streamlit/config.toml` is picked up from the repo root.
+
+On the free tier, a private repo needs you to grant Streamlit access to it, and you can deploy one private app.
+
 ## Product tour (UI & user flows)
 
 The product is one Streamlit app with a front door and two portals, in the **"Linen & Caramel"**

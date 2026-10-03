@@ -1,0 +1,20 @@
+# Streamlit Community Cloud (lite runtime, ~1 GB RAM): the app without torch, local models,
+# docling or Phoenix. Retrieval is keyword-only (KB_LITE). Full stack: see pyproject.toml / uv.lock.
+streamlit==1.65.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+sqlmodel==0.0.47
+pyyaml==6.0.3
+pandas==3.0.6
+lancedb==0.39.0
+pyarrow==25.0.1
+litellm==1.83.0
+presidio-analyzer==2.2.362
+presidio-anonymizer==2.2.364
+dateparser==1.4.3
+groq==1.7.0
+edge-tts==7.2.8
+fastmcp==4.0.10
+google-api-python-client==2.201.0
+google-auth==2.59.1
+google-auth-oauthlib==1.5.0

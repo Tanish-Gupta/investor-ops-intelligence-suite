@@ -37,6 +37,8 @@ def _kb_check() -> Check:
 
 
 def _models_check() -> Check:
+    if get_settings().kb_lite:
+        return Check("Embedding / reranker models", None, "lite runtime — keyword search only")
     d: Path = get_settings().models_dir
     ok = d.exists() and any(d.iterdir())
     detail = "cached locally" if ok else "missing — run scripts/download_models.py"

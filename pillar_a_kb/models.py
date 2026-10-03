@@ -60,10 +60,19 @@ def _device() -> str:
     return "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def _guard() -> None:
+    if get_settings().kb_lite:
+        raise ModelUnavailable("lite runtime: local models are disabled (KB_LITE)")
+
+
 @lru_cache(maxsize=1)
 def embedder() -> SentenceTransformer:
+    _guard()
     configure_hf_env()
-    from sentence_transformers import SentenceTransformer
+    try:
+        from sentence_transformers import SentenceTransformer
+    except ImportError as exc:
+        raise ModelUnavailable("sentence-transformers is not installed") from exc
 
     name = get_settings().embed_model
     with _lock:
@@ -79,8 +88,12 @@ def embedder() -> SentenceTransformer:
 
 @lru_cache(maxsize=1)
 def reranker() -> CrossEncoder:
+    _guard()
     configure_hf_env()
-    from sentence_transformers import CrossEncoder
+    try:
+        from sentence_transformers import CrossEncoder
+    except ImportError as exc:
+        raise ModelUnavailable("sentence-transformers is not installed") from exc
 
     name = get_settings().rerank_model
     with _lock:

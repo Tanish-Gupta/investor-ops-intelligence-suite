@@ -221,9 +221,12 @@ def ingest(*, rebuild: bool = False, use_docling: bool = True) -> dict[str, Any]
     changed = [d for d in docs if old.get(d.source.doc_id) != current[d.source.doc_id]]
     removed = sorted(set(old) - set(current))
 
-    docling = _Docling() if use_docling and changed else None
+    lite = get_settings().kb_lite
+    docling = _Docling() if use_docling and not lite and changed else None
     chunks = [c for d in changed for c in build_chunks(d, docling)]
-    if chunks:
+    if chunks and lite:  # keyword-only index: no embedder in the lite runtime
+        rows = [asdict(c) for c in chunks]
+    elif chunks:
         vectors = models.embed_documents([c.text for c in chunks])
         rows = [{**asdict(c), "vector": v} for c, v in zip(chunks, vectors, strict=True)]
     else:
@@ -251,8 +254,8 @@ def ingest(*, rebuild: bool = False, use_docling: bool = True) -> dict[str, Any]
         "chunks_written": len(rows),
         "total_chunks": table.count_rows(),
         "scheme_facts": facts,
-        "chunker": CHUNKER_VERSION if use_docling else "heading-fallback",
-        "embed_model": get_settings().embed_model,
+        "chunker": CHUNKER_VERSION if use_docling and not lite else "heading-fallback",
+        "embed_model": "none (keyword index)" if lite else get_settings().embed_model,
         "seconds": round(time.monotonic() - started, 1),
     }
     if rows or stale or not manifest_path().exists():

@@ -380,6 +380,7 @@ Evals, health checks and configuration are operator tools and are **not** in the
 | `LLM_JUDGE` | stronger model, different from generator | Eval judge |
 | `EMBED_PROVIDER` / `EMBED_MODEL` | `local` / `Qwen/Qwen3-Embedding-0.6B` | `gemini` for cloud deploy |
 | `RERANK_MODEL` | `BAAI/bge-reranker-v2-m3` | Cross-encoder reranker |
+| `KB_LITE` | `false` | `true` on Streamlit Community Cloud (`cloud/streamlit_app.py`): keyword-only index in `data/lancedb_lite`, no torch/local models |
 | `STT_MODEL` / `TTS_VOICE` | `groq/whisper-large-v3-turbo` / `en-IN-NeerjaNeural` | Voice |
 | `TOP_K` | `5` per sub-query (after rerank of 16 candidates) | Retrieval depth |
 | `MIN_RELEVANCE` | calibrated on golden set (reranker score) | Below this → "not in sources" fallback |

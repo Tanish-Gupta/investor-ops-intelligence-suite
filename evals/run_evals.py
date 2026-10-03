@@ -62,8 +62,8 @@ def run_config() -> dict[str, str]:
     return {
         "generator": f"{gen} ({s.llm_primary})" if gen == "llm" else gen,
         "judge": judge.judge_label(),
-        "embed": s.embed_model,
-        "rerank": s.rerank_model if s.rerank_enabled else "off",
+        "embed": "none (keyword search, KB_LITE)" if s.kb_lite else s.embed_model,
+        "rerank": s.rerank_model if s.rerank_enabled and not s.kb_lite else "off",
         "index": _index_info(),
         "adapters": s.adapter_mode,
     }

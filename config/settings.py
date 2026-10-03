@@ -45,6 +45,9 @@ class Settings(BaseSettings):
     rag_llm_enabled: bool = True  # LLM router + composer when a key exists; else deterministic
     kb_table: str = "kb_unified"
     hf_offline: bool = True  # load models from the project-local cache only (no network)
+    # Lite runtime (Streamlit Community Cloud, ~1 GB RAM): keyword (FTS) retrieval only, no torch
+    # or local models; the index auto-builds into its own folder without embeddings.
+    kb_lite: bool = False
 
     # --- Voice (Pillar B) ---
     stt_model: str = "groq/whisper-large-v3-turbo"
@@ -98,7 +101,7 @@ class Settings(BaseSettings):
 
     @property
     def lancedb_dir(self) -> Path:
-        return self.data_dir / "lancedb"
+        return self.data_dir / ("lancedb_lite" if self.kb_lite else "lancedb")
 
     @property
     def models_dir(self) -> Path:

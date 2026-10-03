@@ -114,6 +114,14 @@ class Retriever:
     def hybrid(self, sq: SubQuery, scheme: Scheme | None, limit: int) -> list[Retrieved]:
         from lancedb.rerankers import RRFReranker
 
+        if self.settings.kb_lite:  # keyword (BM25) search only; no embedder in the lite runtime
+            rows = (
+                self.table.search(_fts_text(sq.text), query_type="fts")
+                .where(self._filter(sq, scheme), prefilter=True)
+                .limit(limit)
+                .to_list()
+            )
+            return [_row(r, sub_query=sq.text) for r in rows]
         vec = models.embed_query(sq.text)
         rows = (
             self.table.search(query_type="hybrid")
@@ -166,10 +174,16 @@ class Retriever:
         )
         return out
 
+    @property
+    def reranks(self) -> bool:
+        """True when hit scores come from the cross-encoder (not the lite / degraded path)."""
+        s = self.settings
+        return s.rerank_enabled and not s.kb_lite and not self.degraded
+
     def _score(self, query: str, items: list[Retrieved]) -> list[Retrieved]:
         if not items:
             return []
-        if not self.settings.rerank_enabled:
+        if not self.settings.rerank_enabled or self.settings.kb_lite:
             return [replace(r, score=1.0 if r.pinned else 0.5) for r in items]
         scores = models.rerank(query, [r.text for r in items])
         return [replace(r, score=sc) for r, sc in zip(items, scores, strict=True)]

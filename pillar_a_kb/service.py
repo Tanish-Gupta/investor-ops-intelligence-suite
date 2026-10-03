@@ -151,7 +151,7 @@ def _compose(
     if frame:
         cand = comp.template(frame)
     else:
-        rerank = get_retriever().settings.rerank_enabled and not get_retriever().degraded
+        rerank = get_retriever().reranks
         cand = comp.extractive(
             q, chunks, rerank=rerank, min_score=get_settings().extractive_min_score
         )

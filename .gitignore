@@ -10,6 +10,7 @@ service_account*.json
 # Generated data
 data/artifacts/
 data/lancedb/
+data/lancedb_lite/
 *.db
 *.db-wal
 *.db-shm
